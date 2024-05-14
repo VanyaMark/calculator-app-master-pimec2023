@@ -12,27 +12,42 @@ let outputButton = document.querySelector('[data-output]');
 let currentOperand = document.querySelector('.current-operand');
 let previousOperand = document.querySelector('.previous-operand');
 
-//State value
-let numberValue = [];
+//State value - number array where to collect the pressed digits
+let firstNumberValue = [];
+let secondNumberValue = [];
+
+let mathOperatorsArr = [...mathOperators].map(mathOperatorButton => mathOperatorButton.dataset.operator)
 
 //Declare functions handling event listeners
 const numberButtonClick = num => {
-    numberValue.push(num);
-    currentOperand.textContent = numberValue.join('');
-}
+    let lastElement = firstNumberValue[firstNumberValue.length - 1];
+    let checkOperator = mathOperatorsArr.includes(lastElement);
+    if (checkOperator) {
+        currentOperand.textContent = '';
+    }
+    else {
+        firstNumberValue.push(num);
+        currentOperand.textContent = firstNumberValue.join('');
+    }
+};
 
 const mathOperatorClick = operator => {
-    let firstNumberAndOperator = numberValue;
-    firstNumberAndOperator = numberValue.concat(operator)
+    let firstNumberAndOperator = firstNumberValue.concat(operator)
     previousOperand.textContent = firstNumberAndOperator.join('');
     currentOperand.textContent = '';
-}
+    currentOperand.textContent = '';
+};
+
+const showResult = () => {
+};
 
 //Add click event listener to all number buttons
-numberButtons.forEach( (numberButton) => {
+numberButtons.forEach((numberButton) => {
     numberButton.addEventListener('click', (event) => numberButtonClick(event.target.dataset.num))
-})
+});
 
-mathOperators.forEach( (mathOperator) =>  {
+mathOperators.forEach((mathOperator) => {
     mathOperator.addEventListener('click', (event) => mathOperatorClick(event.target.dataset.operator))
-})
+});
+
+outputButton.addEventListener('click', showResult);
