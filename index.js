@@ -15,15 +15,33 @@ let previousOperand = document.querySelector('.previous-operand');
 //State value - number array where to collect the pressed digits
 let firstNumberValue = [];
 let secondNumberValue = [];
+let mathOperator = '';
+let firstOperator = false;
 
-let mathOperatorsArr = [...mathOperators].map(mathOperatorButton => mathOperatorButton.dataset.operator)
+let mathOperatorsArr = [...mathOperators].map(mathOperatorButton => mathOperatorButton.dataset.operator);
+
+//help functions
+const mathOperation = (firstNumber, secondNumber, operator) => {
+    let firstNumberToNumber = (parseFloat(firstNumber.join('')));
+    let secondNumberToNumber = (parseFloat(secondNumber.join('')));
+
+    let text = `${firstNumberToNumber} ${mathOperator} ${secondNumberToNumber}`;
+    console.log('text ', text)
+ let result = eval(text);
+ console.log('eval', result);
+
+ return result;
+
+}
 
 //Declare functions handling event listeners
 const numberButtonClick = num => {
-    let lastElement = firstNumberValue[firstNumberValue.length - 1];
-    let checkOperator = mathOperatorsArr.includes(lastElement);
+    let checkOperator = mathOperatorsArr.includes(mathOperator);
+    console.log(checkOperator)
     if (checkOperator) {
         currentOperand.textContent = '';
+        secondNumberValue.push(num);
+        currentOperand.textContent = secondNumberValue.join('');
     }
     else {
         firstNumberValue.push(num);
@@ -32,13 +50,18 @@ const numberButtonClick = num => {
 };
 
 const mathOperatorClick = operator => {
+    mathOperator = operator;
+    firstOperator = true;
     let firstNumberAndOperator = firstNumberValue.concat(operator)
     previousOperand.textContent = firstNumberAndOperator.join('');
-    currentOperand.textContent = '';
     currentOperand.textContent = '';
 };
 
 const showResult = () => {
+    let finalResult = mathOperation(firstNumberValue, secondNumberValue, mathOperator)
+    console.log('showResult: ', finalResult);
+    currentOperand.textContent = finalResult;
+    previousOperand.textContent = '';
 };
 
 //Add click event listener to all number buttons
