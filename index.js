@@ -7,3 +7,13 @@ let mathOperators = document.querySelectorAll('[data-opearot]');
 let delButton = document.querySelector('[data-delete]');
 let resetButton = document.querySelector('[data-reset]');
 let outputButton = document.querySelector('[data-output]');
+
+//Declare functions handling event listeners
+const numberButtonClick = (num) => {
+    console.log(num)
+}
+
+//Add click event listener to all number buttons
+numberButtons.forEach( (numberButton) => {
+    numberButton.addEventListener('click', (event) => numberButtonClick(event.target.dataset.num))
+})
