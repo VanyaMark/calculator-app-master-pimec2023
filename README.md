@@ -13,3 +13,10 @@ Os adjunto la demo para que veaís fácilmente como funciona la app. No inspecci
 6. Puedes usar alguna variable de estado que puede hacer más fáil la implementación de la app, aunque puede que no sea imprescindible
 
 ## Pregunta 1: Describe con lenguaje natural que tiene que hacer la app.
+
+1. Al clickar los números presentar su valor en div data-current-operand 
+2. Al clickar */+- pasar los números + el operador a data-previous-operand
+3. Al clickar = borrar todo en data-precious-operand y mostrar resultado de la operación en data-current-operand
+4. Al clickar al botón res vaciar el data-current-operand
+5. Al clickar al botón del vaciar el data-current-operand + previous-operand
+6. Investigar como cambiar los 3 estilos
