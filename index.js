@@ -87,10 +87,12 @@ const reset = () => {
 const handleDel = () => {
     if (secondNumberValue.length<1) {
         firstNumberValue.pop();
-        currentOperand.textContent = firstNumberValue;
+        currentOperand.textContent = firstNumberValue.join('');
+        console.log(`from handleDel if: firstNumber- ${firstNumberValue}, second - ${secondNumberValue}`)
     } else {
     secondNumberValue.pop();
-    currentOperand.textContent = secondNumberValue;
+    currentOperand.textContent = secondNumberValue.join('');
+    console.log(`from handleDel else: firstNumber- ${firstNumberValue}, second - ${secondNumberValue}`)
 }
 }
 
