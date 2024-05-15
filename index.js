@@ -53,8 +53,10 @@ const mathOperatorClick = (operator) => {
   if (secondNumberValue.length > 0) {
     console.log(mathOperator)
     console.log('from mathOperatorClick after clicking second operator')
-    firstNumberValue = [showResult()]
+    firstNumberValue = [showResult()];
+    secondNumberValue = [];
     console.log('firstNumberVal: ', firstNumberValue)
+    console.log('secondNumberVal: ', secondNumberValue)
   }
   mathOperator = operator;
   let firstNumberAndOperator = firstNumberValue.concat(operator);
@@ -74,6 +76,14 @@ const showResult = () => {
   return finalResult;
 };
 
+const reset = () => {
+    firstNumberValue = [];
+    secondNumberValue = [];
+    mathOperator = "";
+    currentOperand.textContent = "";
+    previousOperand.textContent = "";
+}
+
 //Add click event listener to all number buttons
 numberButtons.forEach((numberButton) => {
   numberButton.addEventListener("click", (event) =>
@@ -88,3 +98,4 @@ mathOperators.forEach((mathOperator) => {
 });
 
 outputButton.addEventListener("click", showResult);
+resetButton.addEventListener("click", reset)
