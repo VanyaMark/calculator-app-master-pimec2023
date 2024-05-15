@@ -27,7 +27,7 @@ const mathOperation = (firstNumber, secondNumber, operator) => {
   let firstNumberToNumber = parseFloat(firstNumber.join(""));
   let secondNumberToNumber = parseFloat(secondNumber.join(""));
 
-  let text = `${firstNumberToNumber} ${mathOperator} ${secondNumberToNumber}`;
+  let text = `${firstNumberToNumber} ${operator} ${secondNumberToNumber}`;
   console.log("text ", text);
   let result = eval(text);
   console.log("eval", result);
@@ -38,7 +38,7 @@ const mathOperation = (firstNumber, secondNumber, operator) => {
 //Declare functions handling event listeners
 const numberButtonClick = (num) => {
   let checkOperator = mathOperatorsArr.includes(mathOperator);
-  console.log(checkOperator);
+
   if (checkOperator) {
     currentOperand.textContent = "";
     secondNumberValue.push(num);
