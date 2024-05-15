@@ -84,6 +84,16 @@ const reset = () => {
     previousOperand.textContent = "";
 }
 
+const handleDel = () => {
+    if (secondNumberValue.length<1) {
+        firstNumberValue.pop();
+        currentOperand.textContent = firstNumberValue;
+    } else {
+    secondNumberValue.pop();
+    currentOperand.textContent = secondNumberValue;
+}
+}
+
 //Add click event listener to all number buttons
 numberButtons.forEach((numberButton) => {
   numberButton.addEventListener("click", (event) =>
@@ -98,4 +108,5 @@ mathOperators.forEach((mathOperator) => {
 });
 
 outputButton.addEventListener("click", showResult);
-resetButton.addEventListener("click", reset)
+resetButton.addEventListener("click", reset);
+delButton.addEventListener('click', handleDel);
