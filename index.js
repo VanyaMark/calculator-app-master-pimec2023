@@ -19,61 +19,79 @@ let mathOperator = "";
 
 
 let mathOperatorsArr = [...mathOperators].map(
-  (mathOperatorButton) => mathOperatorButton.dataset.operator
+    (mathOperatorButton) => mathOperatorButton.dataset.operator
 );
 
 //help functions
 const mathOperation = (firstNumber, secondNumber, operator) => {
-  let firstNumberToNumber = parseFloat(firstNumber.join(""));
-  let secondNumberToNumber = parseFloat(secondNumber.join(""));
+    let firstNumberToNumber = parseFloat(firstNumber.join(""));
+    let secondNumberToNumber = parseFloat(secondNumber.join(""));
 
-  let text = `${firstNumberToNumber} ${operator} ${secondNumberToNumber}`;
-  console.log("text ", text);
-  let result = eval(text);
-  console.log("eval", result);
+    let text = `${firstNumberToNumber} ${operator} ${secondNumberToNumber}`;
+    console.log("text ", text);
+    let result = eval(text);
+    console.log("eval", result);
 
-  return result;
+    return result;
 };
 
 //Declare functions handling event listeners
 const numberButtonClick = (num) => {
-  let checkOperator = mathOperatorsArr.includes(mathOperator);
+    let checkOperator = mathOperatorsArr.includes(mathOperator);
 
-  if (checkOperator) {
-    currentOperand.textContent = "";
-    secondNumberValue.push(num);
-    currentOperand.textContent = secondNumberValue.join("");
-  } else {
-    firstNumberValue.push(num);
-    currentOperand.textContent = firstNumberValue.join("");
-  }
+    if (checkOperator) {
+        if (num == 0 && secondNumberValue.length < 1) {
+            secondNumberValue.push(num);
+            currentOperand.textContent = secondNumberValue.join("");
+            console.log(secondNumberValue)
+            secondNumberValue = [];
+            console.log('from 0 if if')
+        } else {
+            currentOperand.textContent = "";
+            secondNumberValue.push(num);
+            currentOperand.textContent = secondNumberValue.join("");
+        }
+
+    } else {
+        if (num == 0 && firstNumberValue.length < 1) {
+            firstNumberValue.push(num);
+            currentOperand.textContent = firstNumberValue.join("");
+            console.log(firstNumberValue)
+            firstNumberValue = [];
+            console.log('from 0 else if')
+        }
+        else {
+            firstNumberValue.push(num);
+            currentOperand.textContent = firstNumberValue.join("");
+        }
+    }
 };
 
 const mathOperatorClick = (operator) => {
-  if (secondNumberValue.length > 0) {
-    console.log(mathOperator)
-    console.log('from mathOperatorClick after clicking second operator')
-    firstNumberValue = [showResult()];
-    secondNumberValue = [];
-    console.log('firstNumberVal: ', firstNumberValue)
-    console.log('secondNumberVal: ', secondNumberValue)
-  }
-  mathOperator = operator;
-  let firstNumberAndOperator = firstNumberValue.concat(operator);
-  previousOperand.textContent = firstNumberAndOperator.join("");
-  currentOperand.textContent = "";
+    if (secondNumberValue.length > 0) {
+        console.log(mathOperator)
+        console.log('from mathOperatorClick after clicking second operator')
+        firstNumberValue = [showResult()];
+        secondNumberValue = [];
+        console.log('firstNumberVal: ', firstNumberValue)
+        console.log('secondNumberVal: ', secondNumberValue)
+    }
+    mathOperator = operator;
+    let firstNumberAndOperator = firstNumberValue.concat(operator);
+    previousOperand.textContent = firstNumberAndOperator.join("");
+    currentOperand.textContent = "";
 };
 
 const showResult = () => {
-  let finalResult = mathOperation(
-    firstNumberValue,
-    secondNumberValue,
-    mathOperator
-  );
-  console.log("showResult: ", finalResult);
-  currentOperand.textContent = finalResult;
-  previousOperand.textContent = "";
-  return finalResult;
+    let finalResult = mathOperation(
+        firstNumberValue,
+        secondNumberValue,
+        mathOperator
+    );
+    console.log("showResult: ", finalResult);
+    currentOperand.textContent = finalResult;
+    previousOperand.textContent = "";
+    return finalResult;
 };
 
 const reset = () => {
@@ -85,28 +103,28 @@ const reset = () => {
 }
 
 const handleDel = () => {
-    if (secondNumberValue.length<1) {
+    if (secondNumberValue.length < 1) {
         firstNumberValue.pop();
         currentOperand.textContent = firstNumberValue.join('');
         console.log(`from handleDel if: firstNumber- ${firstNumberValue}, second - ${secondNumberValue}`)
     } else {
-    secondNumberValue.pop();
-    currentOperand.textContent = secondNumberValue.join('');
-    console.log(`from handleDel else: firstNumber- ${firstNumberValue}, second - ${secondNumberValue}`)
-}
+        secondNumberValue.pop();
+        currentOperand.textContent = secondNumberValue.join('');
+        console.log(`from handleDel else: firstNumber- ${firstNumberValue}, second - ${secondNumberValue}`)
+    }
 }
 
 //Add click event listener to all number buttons
 numberButtons.forEach((numberButton) => {
-  numberButton.addEventListener("click", (event) =>
-    numberButtonClick(event.target.dataset.num)
-  );
+    numberButton.addEventListener("click", (event) =>
+        numberButtonClick(event.target.dataset.num)
+    );
 });
 
 mathOperators.forEach((mathOperator) => {
-  mathOperator.addEventListener("click", (event) =>
-    mathOperatorClick(event.target.dataset.operator)
-  );
+    mathOperator.addEventListener("click", (event) =>
+        mathOperatorClick(event.target.dataset.operator)
+    );
 });
 
 outputButton.addEventListener("click", showResult);
