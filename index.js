@@ -1,4 +1,13 @@
 // Buena suerte!
+//Extract array of the radio buttons from DOM in order to toggle styles
+const styleBtn = querySelectorAll('input');
+//Add click event listener for styles radio buttons
+styleBtn.forEach(button => {
+    button.addEventListener("click", ()=>toggleStyle(button.value))
+})
+
+
+//------------Calculator Logic-------------------
 //Extract from DOM number buttons and operators in arrays
 let numberButtons = document.querySelectorAll("[data-num]");
 let mathOperators = document.querySelectorAll("[data-operator]");
@@ -12,9 +21,10 @@ let outputButton = document.querySelector("[data-output]");
 let currentOperand = document.querySelector(".current-operand");
 let previousOperand = document.querySelector(".previous-operand");
 
-//State value - number array where to collect the pressed digits
+//State value - number array where to collect the pressed digits for the first number and for the second
 let firstNumberValue = [];
 let secondNumberValue = [];
+//State value - selected math operator string
 let mathOperator = "";
 
 
@@ -22,7 +32,7 @@ let mathOperatorsArr = [...mathOperators].map(
     (mathOperatorButton) => mathOperatorButton.dataset.operator
 );
 
-//help functions
+//help function - returning the result of math operation
 const mathOperation = (firstNumber, secondNumber, operator) => {
     let firstNumberToNumber = parseFloat(firstNumber.join(""));
     let secondNumberToNumber = parseFloat(secondNumber.join(""));
@@ -118,15 +128,18 @@ const handleDel = () => {
 numberButtons.forEach((numberButton) => {
     numberButton.addEventListener("click", (event) =>
         numberButtonClick(event.target.dataset.num)
-    );
+);
 });
 
+//Add click event listener to all operator buttons
 mathOperators.forEach((mathOperator) => {
     mathOperator.addEventListener("click", (event) =>
         mathOperatorClick(event.target.dataset.operator)
-    );
+);
 });
 
+//Add click event listener to reset, delete and equal buttons
 outputButton.addEventListener("click", showResult);
 resetButton.addEventListener("click", reset);
 delButton.addEventListener('click', handleDel);
+
