@@ -1,11 +1,23 @@
 // Buena suerte!
 //Extract array of the radio buttons from DOM in order to toggle styles
-const styleBtn = querySelectorAll('input');
+const initialStylesheet = document.querySelector('#initial-style');
+const otherStylesheet = document.querySelector('#other-style');
+const styleBtns = document.querySelectorAll('input');
+
 //Add click event listener for styles radio buttons
-styleBtn.forEach(button => {
+styleBtns.forEach(button => {
     button.addEventListener("click", ()=>toggleStyle(button.value))
 })
 
+const toggleStyle = (styleSelection) => {
+    if (styleSelection == 0) {
+        otherStylesheet.href = '';
+    } else if (styleSelection == 1) {
+        otherStylesheet.href = 'css/theme1.css';
+    } else if (styleSelection == 2) {
+        otherStylesheet.href = 'css/theme2.css';
+    }
+}
 
 //------------Calculator Logic-------------------
 //Extract from DOM number buttons and operators in arrays
